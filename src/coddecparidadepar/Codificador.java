@@ -18,10 +18,6 @@ import java.util.BitSet;
  */
 public class Codificador {
 
-    public static int[][] bitSetToIntMatrix(BitSet bs) {
-        return null;
-    }
-
     public static BitSet calculaVerificadorVertical(BitSet bs) {
         int paridade;
         BitSet verificadorVertical = new BitSet(8);
@@ -59,7 +55,7 @@ public class Codificador {
     }
 
     public static void main(String[] args) throws FileNotFoundException, IOException {
-        String nomeArq = "txt.htm";
+        String nomeArq = "entrada.htm";
         File arquivo = new File(nomeArq);
         File saida = new File("saida." + nomeArq.split("\\.")[nomeArq.split("\\.").length - 1]);
         FileInputStream fis = new FileInputStream(arquivo);
@@ -70,13 +66,25 @@ public class Codificador {
         int bytesRead = fis.read(bytesIn, 0, 8); //serão necessarios 2 bytes para o calculo
 
         BitSet matrizBits = new BitSet(64);
+        for (int i = 0; i < 64; i++) {
+            matrizBits.set(i, false);
+        }
         BitSet verificadorVerticalBits = new BitSet(8);
         BitSet verificadorHorizontalBits = new BitSet(8);
 
         while (bytesRead != -1) {
 
             matrizBits = BitSet.valueOf(bytesIn);
-            
+            System.out.println("\n");
+            for (int i = 1; i <= 64; i++) {
+                //for (int j = 0; j < 8; j++) {
+                System.out.print(((matrizBits.get(i - 1)) ? 1 : 0));
+                if ((i % 8 == 0) && (i != 0)) {
+                    System.out.println("");
+                }
+                //}
+
+            }
 
             verificadorVerticalBits = calculaVerificadorVertical(matrizBits);
 
@@ -87,17 +95,37 @@ public class Codificador {
             bytesOut = verificadorVerticalBits.toByteArray();
             fos.write(bytesOut);
             bytesOut = matrizBits.toByteArray();
-            if (bytesRead < 8 && bytesRead > 0) {
-                byte [] aux = new byte[8];
-                for (int k = 0; k < bytesOut.length; k++) {
-                    aux[k] = bytesOut[k];
-                }
-                for (int i = bytesRead-1; i < 8; i++) {
-                    aux[i] = 0;
-                }
-                bytesOut = aux;
-            }
+
+//            if (bytesRead < 8) {
+//                byte [] aux = new byte[8];
+//                for (int k = 0; k < bytesOut.length; k++) {
+//                    aux[k] = bytesOut[k];
+//                }
+//                for (int i = bytesRead-1; i < 8; i++) {
+//                    aux[i] = 0;
+//                }
+//                bytesOut = aux;
+//            }
             fos.write(bytesOut);
+            byte[] aux = new byte[8 - bytesRead];
+            if (bytesRead < 8) {
+
+                for (int k = 0; k < aux.length; k++) {
+                    aux[k] = 0;
+                }
+                fos.write(aux);
+
+            }
+
+            System.out.println("\n");
+            for (int i = 0; i < bytesOut.length; i++) {
+                System.out.println(String.format("%8s", Integer.toBinaryString(bytesOut[i] & 0xFF)).replace(' ', '0'));
+            }
+            if (aux.length > 0) {
+                for (int i = 0; i < aux.length; i++) {
+                    System.out.println(String.format("%8s", Integer.toBinaryString(aux[i] & 0xFF)).replace(' ', '0'));
+                }
+            }
 
             bytesRead = fis.read(bytesIn, 0, 8);
         }
