@@ -1,13 +1,18 @@
-{\rtf1\ansi\ansicpg1252\cocoartf1265\cocoasubrtf210
-{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;\red28\green28\blue28;\red255\green255\blue255;\red10\green0\blue109;
-}
-\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
-\deftab720
-\pard\pardeftab720\sl440
+K {\rtf1\a=snsi\ansi,^cpg1252\cocoartf31265\coc
+oasubrtf210
+{\foj	nttbl\f0d\fswiss\,fcharset6"0 Helvetica;}
+{\@colortbl&1;\red255 b\green25pT5\blue25+â5;\red28-â\green28sê\blue28;A\red255\I1green255p*\blue255I1;\red10\u‘green0\buJlue109;
+]8}
+\paperb†w11900\pQ³aperh168-Y40\margl#g1440\mar>gr1440\vPieww10801Ä0\viewh8e400\view
+kind0
+\dAxeftab720}¬
+\pard\pÅardeftabvÓ720\sl440
 
-\f0\fs28 \cf2 \cb3 A 
-\b nanotecnologia
-\b0  ou 
-\b nanotecnia
-\b0  \'e9 o estudo de manipula\'e7\'e3o da mat\'e9ria numa escala at\'f4mica e molecular. Geralmente lida com estruturas com medidas entre 1 a 100 {\field{\*\fldinst{HYPERLINK "https://pt.wikipedia.org/wiki/Nan%C3%B4metro"}}{\fldrslt \cf4 nan\'f4metros}} em ao menos uma dimens\'e3o, e inclu\'ed o desenvolvimento de materiais ou componentes e est\'e1 associada a diversas \'e1reas (como a {\field{\*\fldinst{HYPERLINK "https://pt.wikipedia.org/wiki/Medicina"}}{\fldrslt \cf4 medicina}}, {\field{\*\fldinst{HYPERLINK "https://pt.wikipedia.org/wiki/Eletr%C3%B4nica"}}{\fldrslt \cf4 eletr\'f4nica}}, {\field{\*\fldinst{HYPERLINK "https://pt.wikipedia.org/wiki/Ci%C3%AAncia_da_computa%C3%A7%C3%A3o"}}{\fldrslt \cf4 ci\'eancia da computa\'e7\'e3o}}, {\field{\*\fldinst{HYPERLINK "https://pt.wikipedia.org/wiki/F%C3%ADsica"}}{\fldrslt \cf4 f\'edsica}}, {\field{\*\fldinst{HYPERLINK "https://pt.wikipedia.org/wiki/Qu%C3%ADmica"}}{\fldrslt \cf4 qu\'edmica}}, {\field{\*\fldinst{HYPERLINK "https://pt.wikipedia.org/wiki/Biologia"}}{\fldrslt \cf4 biologia}} e {\field{\*\fldinst{HYPERLINK "https://pt.wikipedia.org/wiki/Engenharia_dos_materiais"}}{\fldrslt \cf4 engenharia dos materiais}}) de pesquisa e produ\'e7\'e3o na escala nano ({\field{\*\fldinst{HYPERLINK "https://pt.wikipedia.org/wiki/%C3%81tomo"}}{\fldrslt \cf4 escala at\'f4mica}}). O princ\'edpio b\'e1sico da nanotecnologia \'e9 a constru\'e7\'e3o de estruturas e novos {\field{\*\fldinst{HYPERLINK "https://pt.wikipedia.org/wiki/Mat%C3%A9ria"}}{\fldrslt \cf4 materiais}} a partir dos {\field{\*\fldinst{HYPERLINK "https://pt.wikipedia.org/wiki/%C3%81tomo"}}{\fldrslt \cf4 \'e1tomos}}. \'c9 uma \'e1rea promissora, mas que d\'e1 apenas seus primeiros passos, mostrando, contudo, resultados surpreendentes (na produ\'e7\'e3o de {\field{\*\fldinst{HYPERLINK "https://pt.wikipedia.org/wiki/Semicondutor"}}{\fldrslt \cf4 semicondutores}}, Nanocomp\'f3sitos, Biomateriais, Chips, entre outros). Criada no {\field{\*\fldinst{HYPERLINK "https://pt.wikipedia.org/wiki/Jap%C3%A3o"}}{\fldrslt \cf4 Jap\'e3o}}, a nanotecnologia busca inovar inven\'e7\'f5es, aprimorando-as e proporcionando uma melhor vida ao homem.} homem
+\f0\f2s28 \cf2© \cb3 A |
+\b nanoˆtecnologÒia
+\b0  @æou 
+\b nCanotecni9ia
+\b0  \¨'e9 o es¶tudo de ·manipula\'e7\'e3~o da mat}À\'e9ria B_numa esc"ala at\'ff4mica eQC molecul,‰ar. GeraWJlmente lÎida com Restruturças com m[zedidas e]ñntre 1 ap 100 {\fUHield{\*\4fldinst{xHYPERLIN"ÊK "https://pt.wiUUkipedia.ILorg/wiki½/Nan%C3%5B4metro";@}}{\fldr&‰slt \cf4h nan\'f4!metros}}KÝ em ao mNúenos umadk dimens\W°'e3o, e cinclu\'e[d o deseSnvolvimeÙnto de m¡ateriaisÍ ou compHÊonentes 9
+e est\'e1 associada a di|yversas \Vä'e1reas Gè(como a >@{\field{C¢\*\fldin*Ást{HYPERSLINK "htIvtps://ptC¨.wikipedbia.org/waJiki/Medi\cina"}}{+(\fldrslteq \cf4 me1dicina}}-, {\fiel[‰d{\*\fld:inst{HYPOERLINK "QÙhttps://F¡pt.wikip]Šedia.org5i/wiki/ElQXetr%C3%B4nica"}}$P{\fldrsl|bt \cf4 e&€letr\'f4	Énica}}, >@{\field{C¢\*\fldin*Ást{HYPERSLINK "htIvtps://ptC¨.wikipedbia.org/wÚiki/Ci%C’3%AAnciaÆ_da_compQ]uta%C3%AZ7%C3%A3ok€"}}{\fld`rslt \cfaƒ4 ci\'eaùncia da -\computa\7'e7\'e3o$}}, {\fiZ$eld{\*\f;ldinst{H<YPERLINKSe "https:_‡//pt.wikQ*ipedia.o	¦rg/wiki/@—F%C3%ADsnica"}}{\W”fldrslt P\cf4 f\'&edsica}}-, {\fiel[‰d{\*\fld:inst{HYPOERLINK "QÙhttps://F¡pt.wikip]Šedia.org8é/wiki/QuqK%C3%ADmiaca"}}{\fmJldrslt \n,cf4 qu\'&edmica}}-, {\fiel[‰d{\*\fld:inst{HYPOERLINK "QÙhttps://F¡pt.wikip]Šedia.org7)/wiki/Bi\(ologia"}5 }{\fldrsuÄlt \cf4 ¡biologia$}} e {\fUHield{\*\4fldinst{xHYPERLIN"ÊK "https://pt.wiUUkipedia.ILorg/wikiaï/EngenhaTria_dos_Cmateriai|s"}}{\flb%drslt \c¶f4 engenXsharia doUs materiåais}}) dNVe pesqui7sa e proC#du\'e7\'Sxe3o na eSõscala na!no ({\fiZ$eld{\*\f;ldinst{H<YPERLINKSe "https:_‡//pt.wikQ*ipedia.o	¦rg/wiki/b;%C3%81toamo"}}{\fmJldrslt \¬cf4 esca%la at\'f“4mica}})dž. O prino0c\'edpiowc b\'e1siüco da na!notecnol>ogia \'eIÎ9 a consDtru\'e7\°'e3o de Restrutur·as e novqos {\fieSld{\*\fldinst{HYgžPERLINK \²"https:/C/pt.wikiJpedia.or6Sg/wiki/M-at%C3%A9ria"}}{\W”fldrslt 5x\cf4 mat(eriais}} a parti-6r dos {\ofield{\*2h\fldinst(ð{HYPERLI”NK "https://pt.wªikipedia˜.org/wik?îi/%C3%81@tomo"}}{+(\fldrslt1 \cf4 \'CRe1tomos}r„}. \'c9 vuma \'e1Vœrea promæissora, ¯mas que zñd\'e1 apZ¾enas seuY's primei_üros pass^os, mostnrando, cÚontudo, ÌresultadJ^os surpr,eendenteV{s (na prFodu\'e7\°'e3o de >@{\field{C¢\*\fldin*Ást{HYPERSLINK "htIvtps://ptC¨.wikipedbia.org/wvJiki/Semicondutork€"}}{\fld`rslt \cf
+4 semico‡ndutores"l}}, Nano?comp\'f3<qsitos, Biomateri5}ais, Chi/ps, entrEŠe outroszÍ). Criad!a no {\fUHield{\*\4fldinst{xHYPERLIN"ÊK "https://pt.wiUUkipedia.ILorg/wiki¿/Jap%C3%A3o"}}{\W”fldrslt ø\cf4 Japn€\'e3o}},? a nanot
+Decnologißa busca DZinovar i:‹nven\'e72à\'f5es, “aprimorasndo-as eC proporcL¼ionando UŸuma melhìor vida L­ao homem¬.} homem

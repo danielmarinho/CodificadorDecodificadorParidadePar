@@ -76,16 +76,6 @@ public class Codificador {
         while (bytesRead != -1) {
 
             matrizBits = BitSet.valueOf(bytesIn);
-            System.out.println("\n");
-            for (int i = 1; i <= 64; i++) {
-                //for (int j = 0; j < 8; j++) {
-                System.out.print(((matrizBits.get(i - 1)) ? 1 : 0));
-                if ((i % 8 == 0) && (i != 0)) {
-                    System.out.println("");
-                }
-                //}
-
-            }
 
             verificadorVerticalBits = calculaVerificadorVertical(matrizBits);
 
@@ -97,16 +87,6 @@ public class Codificador {
             fos.write(bytesOut);
             bytesOut = matrizBits.toByteArray();
 
-//            if (bytesRead < 8) {
-//                byte [] aux = new byte[8];
-//                for (int k = 0; k < bytesOut.length; k++) {
-//                    aux[k] = bytesOut[k];
-//                }
-//                for (int i = bytesRead-1; i < 8; i++) {
-//                    aux[i] = 0;
-//                }
-//                bytesOut = aux;
-//            }
             fos.write(bytesOut);
             byte[] aux = new byte[8 - bytesRead];
             if (bytesRead < 8) {
@@ -118,15 +98,6 @@ public class Codificador {
 
             }
 
-            System.out.println("\n");
-            for (int i = 0; i < bytesOut.length; i++) {
-                System.out.println(String.format("%8s", Integer.toBinaryString(bytesOut[i] & 0xFF)).replace(' ', '0'));
-            }
-            if (aux.length > 0) {
-                for (int i = 0; i < aux.length; i++) {
-                    System.out.println(String.format("%8s", Integer.toBinaryString(aux[i] & 0xFF)).replace(' ', '0'));
-                }
-            }
 
             bytesRead = fis.read(bytesIn, 0, 8);
         }

@@ -17,21 +17,29 @@ public class Main {
     
     public static void main(String [] args) throws IOException{
         
-        System.out.println("Escolha o programa a ser executado:");
-        System.out.println("1.Codificador\n2.Decodificador\n3.Sair\n");
+        
+        
         
         Scanner in = new Scanner(System.in);
         String nomeArquivo = null; //arquivoCod = nomeArquivo[0] / arquivoDecod = nomeArquivo[1]
         
-        int opcao = in.nextInt();
+        System.out.println("Escolha o programa a ser executado:");
+        System.out.println("1.Codificador\n2.Decodificador\n3.Sair\n");
         
-        switch(opcao){
+        int opcao = in.nextInt();
+        in.nextLine();
+        
+        while(opcao != 3){
+            
+            switch(opcao){
             case 1:
                 System.out.println("Codificador!");
                 System.out.println("Digite o nome do arquivo com sua extensão e pressione ENTER:");
                 
                 try{
+                    
                     nomeArquivo = in.nextLine();
+                    
                     Codificador.codificar(nomeArquivo);
                 }
                 catch(FileNotFoundException e){
@@ -46,7 +54,8 @@ public class Main {
                 
                 try{
                     nomeArquivo = in.nextLine();
-                    Codificador.codificar(nomeArquivo);
+                    
+                    Decodificador.decodificar(nomeArquivo);
                 }
                 catch(FileNotFoundException e){
                     System.err.println("Arquivo não encontrado!!");
@@ -64,11 +73,18 @@ public class Main {
                 System.out.println("Opção inválida!");
                 
                 break;
+            }
+            
+            System.out.println("Escolha o programa a ser executado:");
+            System.out.println("1.Codificador\n2.Decodificador\n3.Sair\n");
+            
+            opcao = in.nextInt();
+            in.nextLine();
+            
         }
         
         
         
-        String nomeArq = in.nextLine();
     }
     
 }
