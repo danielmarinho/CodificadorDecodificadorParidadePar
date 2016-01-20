@@ -64,9 +64,8 @@ public class Decodificador {
         return bitSets;
     }
 
-    public static void main(String[] args) throws FileNotFoundException, IOException {
-
-        String nomeArq = "saida.htm";
+    public static void decodificar(String nomeArq) throws FileNotFoundException, IOException {
+        
         File arquivo = new File(nomeArq);
         File saida = new File("arq_final." + nomeArq.split("\\.")[nomeArq.split("\\.").length - 1]);
         FileInputStream fis = new FileInputStream(arquivo);

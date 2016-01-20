@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.BitSet;
+import java.util.Scanner;
 
 /**
  *
@@ -54,8 +55,8 @@ public class Codificador {
         return verificadorHorizontal;
     }
 
-    public static void main(String[] args) throws FileNotFoundException, IOException {
-        String nomeArq = "entrada.htm";
+    public static void codificar(String nomeArq) throws FileNotFoundException, IOException {
+        
         File arquivo = new File(nomeArq);
         File saida = new File("saida." + nomeArq.split("\\.")[nomeArq.split("\\.").length - 1]);
         FileInputStream fis = new FileInputStream(arquivo);
