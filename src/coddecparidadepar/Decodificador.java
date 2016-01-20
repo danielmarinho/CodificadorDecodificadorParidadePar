@@ -98,18 +98,18 @@ public class Decodificador {
 
             verificadorHorizontalBits = calculaVerificadorHorizontal(matrizBitsRecebida);
 
-            bytesOut = matrizBitsRecebida.toByteArray();
-            if (bytesRead < 8 && bytesRead > 0) {
-                byte[] aux = new byte[8];
-                for (int k = 0; k < bytesOut.length; k++) {
-                    aux[k] = bytesOut[k];
-                }
-                for (int i = bytesRead - 1; i < 8; i++) {
-                    aux[i] = 0;
-                }
-                bytesOut = aux;
-            }
-            fos.write(bytesOut);
+            
+//            if (bytesRead < 8 && bytesRead > 0) {
+//                byte[] aux = new byte[8];
+//                for (int k = 0; k < bytesOut.length; k++) {
+//                    aux[k] = bytesOut[k];
+//                }
+//                for (int i = bytesRead - 1; i < 8; i++) {
+//                    aux[i] = 0;
+//                }
+//                bytesOut = aux;
+//            }
+            
 
             bytesRead = fis.read(bytesIn, 0, 10);
 
@@ -160,6 +160,8 @@ public class Decodificador {
 
                 System.out.println("ERRO DETECTADO NO VERIFICADOR DE PARIDADE, MAS SEM DANOS NO ARQUIVO.");
             }
+            bytesOut = matrizBitsRecebida.toByteArray();
+            fos.write(bytesOut);
 
         }
 
