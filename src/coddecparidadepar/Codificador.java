@@ -31,9 +31,9 @@ public class Codificador {
                 paridade = paridade + ((bs.get(i + j)) ? 1 : 0);
             }
             if (paridade % 2 == 0) {
-                verificadorVertical.set(i, false);
+                verificadorVertical.set(i / 8, false);
             } else {
-                verificadorVertical.set(i, true);
+                verificadorVertical.set(i / 8, true);
             }
         }
 
@@ -54,14 +54,12 @@ public class Codificador {
             } else {
                 verificadorHorizontal.set(i, true);
             }
-            // System.out.println(paridade);
         }
-        //System.out.println(verificadorHorizontal);
         return verificadorHorizontal;
     }
 
     public static void main(String[] args) throws FileNotFoundException, IOException {
-        String nomeArq = "Untitled.png";
+        String nomeArq = "txt.htm";
         File arquivo = new File(nomeArq);
         File saida = new File("saida." + nomeArq.split("\\.")[nomeArq.split("\\.").length - 1]);
         FileInputStream fis = new FileInputStream(arquivo);
@@ -78,33 +76,29 @@ public class Codificador {
         while (bytesRead != -1) {
 
             matrizBits = BitSet.valueOf(bytesIn);
-            //System.out.println("Matriz Original");
             
-            
-            System.out.println("");
+
             verificadorVerticalBits = calculaVerificadorVertical(matrizBits);
-            System.out.println("Vetor Vertical");
-            System.out.print(verificadorVerticalBits);
 
             verificadorHorizontalBits = calculaVerificadorHorizontal(matrizBits);
-            System.out.println("Vetor Horizontal");
-            System.out.print(verificadorHorizontalBits);
-            
+
             bytesOut = verificadorHorizontalBits.toByteArray();
             fos.write(bytesOut);
             bytesOut = verificadorVerticalBits.toByteArray();
             fos.write(bytesOut);
             bytesOut = matrizBits.toByteArray();
+            if (bytesRead < 8 && bytesRead > 0) {
+                byte [] aux = new byte[8];
+                for (int k = 0; k < bytesOut.length; k++) {
+                    aux[k] = bytesOut[k];
+                }
+                for (int i = bytesRead-1; i < 8; i++) {
+                    aux[i] = 0;
+                }
+                bytesOut = aux;
+            }
             fos.write(bytesOut);
-//            for (int j = 0; j < 64; j++) {
-//                //System.out.print(matrizBits.get(j) + " ");
-//                if (j % 8 == 0) {
-//                    //System.out.print("\n");
-//                }
-//            }
-            
 
-            System.out.println("");
             bytesRead = fis.read(bytesIn, 0, 8);
         }
 
