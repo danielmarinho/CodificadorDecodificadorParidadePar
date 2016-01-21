@@ -114,6 +114,18 @@ public class Codificador {
 //                bytesOut[i] = temp[i];
 //            }
             bytesOut = matrizBits.toByteArray();
+            if(bytesOut.length != bytesRead){
+                byte [] aux = new byte[bytesRead];
+                for (int i = 0; i < bytesRead; i++) {
+                    if(i>=bytesOut.length){
+                      aux[i] = 0;  
+                    }else{
+                       aux[i] = bytesOut[i]; 
+                    }
+                    
+                }
+                bytesOut = aux;
+            }
             if (bytesRead < 8 && bytesRead > 0) {
                 byte[] aux = new byte[bytesRead];
                 for (int i = 0; i < bytesRead; i++) {
