@@ -32,7 +32,10 @@ public class Decodificador {
                 verificadorVertical.set(i / 8, true);
             }
         }
-
+//        for (int i = 0; i < 3; i++) {
+//            boolean aux = verificadorVertical.get(i);
+//            verificadorVertical
+//        }
         return verificadorVertical;
     }
 
@@ -54,18 +57,50 @@ public class Decodificador {
     }
 
     public static BitSet[] separaVerificadorEDados(BitSet bs) {
+        byte [] auxiliarVerificadorHorizontal = new byte[1];
+        byte [] auxiliarVerificadorVertical = new byte[1];
         BitSet verificadorVertical = new BitSet(8);
         BitSet verificadorHorizontal = new BitSet(8);
         BitSet dadosBits = new BitSet(64);
         verificadorHorizontal = bs.get(0, 7);
+        auxiliarVerificadorHorizontal = verificadorHorizontal.toByteArray();
+        if (auxiliarVerificadorHorizontal.length == 0) {
+            auxiliarVerificadorHorizontal = new byte[1];
+            auxiliarVerificadorHorizontal[0] = 0;
+        }
+        //if debugger
+        if (verificadorHorizontal.toByteArray().length == 0 || bs.toByteArray().length == 0) {
+            System.out.println("debugger");
+        }
+        if (auxiliarVerificadorHorizontal[0] != bs.toByteArray()[0]) {
+            if (verificadorHorizontal.get(7)) {
+                verificadorHorizontal.set(7, false);
+            } else {
+                verificadorHorizontal.set(7, true);
+            }
+        }
         verificadorVertical = bs.get(8, 15);
+        auxiliarVerificadorVertical = verificadorVertical.toByteArray();
+        if (auxiliarVerificadorVertical.length == 0) {
+            auxiliarVerificadorVertical = new byte[1];
+            auxiliarVerificadorVertical[0] = 0;
+        }
+        
+        if (auxiliarVerificadorVertical[0] != bs.toByteArray()[1]) {
+            if (verificadorVertical.get(7)) {
+                verificadorVertical.set(7, false);
+            } else {
+                verificadorVertical.set(7, true);
+            }
+        }
+
         dadosBits = bs.get(16, 79);
         BitSet[] bitSets = {verificadorHorizontal, verificadorVertical, dadosBits};
         return bitSets;
     }
 
     public static void decodificar(String nomeArq) throws FileNotFoundException, IOException {
-        
+
         File arquivo = new File(nomeArq);
         File saida = new File("arq_final." + nomeArq.split("\\.")[nomeArq.split("\\.").length - 1]);
         FileInputStream fis = new FileInputStream(arquivo);
@@ -94,10 +129,17 @@ public class Decodificador {
             matrizBitsRecebida = separador[2];
 
             verificadorVerticalBits = calculaVerificadorVertical(matrizBitsRecebida);
+            System.out.println("VV Novo:" + verificadorVerticalBits);
+            System.out.println("VV Velho:" + verificadorVerticalRecebido);
 
             verificadorHorizontalBits = calculaVerificadorHorizontal(matrizBitsRecebida);
+            System.out.println("VH Novo:" + verificadorHorizontalBits);
+            System.out.println("VH Velho:" + verificadorHorizontalRecebido);
+            //if debugger
+            if (!verificadorHorizontalBits.equals(verificadorHorizontalRecebido) || !verificadorVerticalBits.equals(verificadorVerticalRecebido)) {
+                System.out.println("stop");
+            }
 
-            
 //            if (bytesRead < 8 && bytesRead > 0) {
 //                byte[] aux = new byte[8];
 //                for (int k = 0; k < bytesOut.length; k++) {
@@ -109,8 +151,6 @@ public class Decodificador {
 //                bytesOut = aux;
 //            }
             
-
-            bytesRead = fis.read(bytesIn, 0, 10);
 
             int erroVertical = 0;
             int erroHorizontal = 0;
@@ -132,7 +172,7 @@ public class Decodificador {
                 }
             }
 
-            if (verificadorVerticalRecebido != verificadorVerticalBits) {
+            if (!(verificadorVerticalRecebido.equals(verificadorVerticalBits))) {
                 for (int i = 0; i < 8; i++) {
                     if (verificadorVerticalRecebido.get(i) != verificadorVerticalBits.get(i)) {
                         erroVertical++;
@@ -140,7 +180,7 @@ public class Decodificador {
                     }
                 }
                 if (erroVertical > 1) {
-                    System.err.println("ARQUIVO CORROMPIDO E NÃO FOI POSSÍVEL CORRIGI-LO");
+                    System.err.println("ARQUIVO CORROMPIDO E NÃO FOI POSSÍVEL CORRIGI-LO(vertical)");
                     fos.close();
                     fis.close();
                     System.exit(0);
@@ -156,12 +196,27 @@ public class Decodificador {
                 }
                 System.out.println("ERRO DETECTADO E CORRIGIDO.");
             } else if ((erroVertical == 1) || (erroHorizontal == 1)) {
-
-                System.out.println("ERRO DETECTADO NO VERIFICADOR DE PARIDADE, MAS SEM DANOS NO ARQUIVO.");
+                if (erroVertical == 1) {
+                    System.out.println("ERRO DETECTADO NO VERIFICADOR DE PARIDADE VERTICAL, MAS SEM DANOS NO ARQUIVO.");
+                }
+                if (erroHorizontal == 1) {
+                    System.out.println("ERRO DETECTADO NO VERIFICADOR DE PARIDADE HORIZONTAL, MAS SEM DANOS NO ARQUIVO.");
+                }
             }
             bytesOut = matrizBitsRecebida.toByteArray();
-            fos.write(bytesOut);
+            if (bytesRead < 8 && bytesRead > 0) {
+                byte[] aux = new byte[bytesRead-2];
+                for (int i = 0; i < bytesRead-2; i++) {
+                    aux[i] = bytesOut[i];
+                }
 
+//                for (int i = 0; i < bytesRead; i++) {
+//                    aux[i] = bytesOut[i];
+//                }
+                bytesOut = aux;
+            }
+            fos.write(bytesOut);
+            bytesRead = fis.read(bytesIn, 0, 10);
         }
 
         fos.close();

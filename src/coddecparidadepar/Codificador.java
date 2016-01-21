@@ -18,6 +18,9 @@ import java.util.Scanner;
  * @author danielmarinho
  */
 public class Codificador {
+    
+    public static int qtdZeros = 0;
+    public static int qtdBlocos = 0;
 
     public static BitSet calculaVerificadorVertical(BitSet bs) {
         int paridade;
@@ -93,8 +96,16 @@ public class Codificador {
             verificadorHorizontalBits = calculaVerificadorHorizontal(matrizBits);
 
             bytesOut = verificadorHorizontalBits.toByteArray();
+            if(bytesOut.length==0){
+                bytesOut = new byte[1];
+                bytesOut[0] = 0;
+            }
             fos.write(bytesOut);
             bytesOut = verificadorVerticalBits.toByteArray();
+            if(bytesOut.length==0){
+                bytesOut = new byte[1];
+                bytesOut[0] = 0;
+            }
             fos.write(bytesOut);
 
 //            byte [] temp = matrizBits.toByteArray();
@@ -104,15 +115,16 @@ public class Codificador {
 //            }
             bytesOut = matrizBits.toByteArray();
             if (bytesRead < 8 && bytesRead > 0) {
-                byte[] aux = new byte[8];
-                for (int i = 0; i < aux.length; i++) {
-                    aux[i] = 0;
-                }
-
+                byte[] aux = new byte[bytesRead];
                 for (int i = 0; i < bytesRead; i++) {
                     aux[i] = bytesOut[i];
                 }
+
+//                for (int i = 0; i < bytesRead; i++) {
+//                    aux[i] = bytesOut[i];
+//                }
                 bytesOut = aux;
+                qtdZeros = (8-bytesRead)*8;
             }
 
 //            if (bytesRead < 8) {
