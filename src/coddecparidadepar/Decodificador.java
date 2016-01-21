@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package coddecparidadepar;
 
 import java.io.File;
@@ -18,48 +13,10 @@ import java.util.BitSet;
  */
 public class Decodificador {
 
-    public static BitSet calculaVerificadorVertical(BitSet bs) {
-        int paridade;
-        BitSet verificadorVertical = new BitSet(8);
-        for (int i = 0; i < 64; i = i + 8) {
-            paridade = 0;
-            for (int j = 0; j < 8; j++) {
-                paridade = paridade + ((bs.get(i + j)) ? 1 : 0);
-            }
-            if (paridade % 2 == 0) {
-                verificadorVertical.set(i / 8, false);
-            } else {
-                verificadorVertical.set(i / 8, true);
-            }
-        }
-//        for (int i = 0; i < 3; i++) {
-//            boolean aux = verificadorVertical.get(i);
-//            verificadorVertical
-//        }
-        return verificadorVertical;
-    }
-
-    public static BitSet calculaVerificadorHorizontal(BitSet bs) {
-        int paridade;
-        BitSet verificadorHorizontal = new BitSet(8);
-        for (int i = 0; i < 8; i++) {
-            paridade = 0;
-            for (int j = 0; j < 64; j = j + 8) {
-                paridade = paridade + ((bs.get(i + j)) ? 1 : 0);
-            }
-            if (paridade % 2 == 0) {
-                verificadorHorizontal.set(i, false);
-            } else {
-                verificadorHorizontal.set(i, true);
-            }
-        }
-        return verificadorHorizontal;
-    }
-
-    public static BitSet[] separaVerificadorEDados(BitSet bs) {
+    public static BitSet[] separaVerificadorEDados(BitSet bs) {//Separa os verificadores dos dados do arquivo
         byte[] byteArrayfromBitSet;
         byteArrayfromBitSet = bs.toByteArray();
-        if (byteArrayfromBitSet.length == 0) {
+        if (byteArrayfromBitSet.length == 0) {//Trata o caso dos ultimos bytes serem zero, o que normalmente seria ignorado pelo BitSet
             byteArrayfromBitSet = new byte[10];
             for (int i = 0; i < 10; i++) {
                 byteArrayfromBitSet[i] = 0;
@@ -70,31 +27,28 @@ public class Decodificador {
         BitSet verificadorVertical = new BitSet(8);
         BitSet verificadorHorizontal = new BitSet(8);
         BitSet dadosBits = new BitSet(64);
-        verificadorHorizontal = bs.get(0, 7);
+        verificadorHorizontal = bs.get(0, 7);//Byte do verificador de paridade das colunas
         auxiliarVerificadorHorizontal = verificadorHorizontal.toByteArray();
-        if (auxiliarVerificadorHorizontal.length == 0) {
+        if (auxiliarVerificadorHorizontal.length == 0) {//Trata o caso dos ultimos bytes serem zero, o que normalmente seria ignorado pelo BitSet
             auxiliarVerificadorHorizontal = new byte[1];
             auxiliarVerificadorHorizontal[0] = 0;
         }
-        //if debugger
-        if (auxiliarVerificadorHorizontal.length == 0 || bs.toByteArray().length == 0) {
-            System.out.println("debugger");
-        }
-        if (auxiliarVerificadorHorizontal[0] != byteArrayfromBitSet[0]) {//BUG: ta vindo BitSet somente de zero para bmp
+
+        if (auxiliarVerificadorHorizontal[0] != byteArrayfromBitSet[0]) {//Resolve o seguinte problema: BitSet inverte o ultimo bit do byte, caso o byte represente um número negativo, portanto invertemos de volta nesse caso para nao perder dados
             if (verificadorHorizontal.get(7)) {
                 verificadorHorizontal.set(7, false);
             } else {
                 verificadorHorizontal.set(7, true);
             }
         }
-        verificadorVertical = bs.get(8, 15);
+        verificadorVertical = bs.get(8, 15);//Byte do verificador de paridade das linhas
         auxiliarVerificadorVertical = verificadorVertical.toByteArray();
-        if (auxiliarVerificadorVertical.length == 0) {
+        if (auxiliarVerificadorVertical.length == 0) {//Trata o caso dos ultimos bytes serem zero, o que normalmente seria ignorado pelo BitSet
             auxiliarVerificadorVertical = new byte[1];
             auxiliarVerificadorVertical[0] = 0;
         }
 
-        if (auxiliarVerificadorVertical[0] != byteArrayfromBitSet[1]) {
+        if (auxiliarVerificadorVertical[0] != byteArrayfromBitSet[1]) {//Resolve o seguinte problema: BitSet inverte o ultimo bit do byte, caso o byte represente um número negativo, portanto invertemos de volta nesse caso para nao perder dados
             if (verificadorVertical.get(7)) {
                 verificadorVertical.set(7, false);
             } else {
@@ -102,23 +56,24 @@ public class Decodificador {
             }
         }
 
-        dadosBits = bs.get(16, 79);
+        dadosBits = bs.get(16, 79);//Bytes de dados
         BitSet[] bitSets = {verificadorHorizontal, verificadorVertical, dadosBits};
-        return bitSets;
+        return bitSets;//retorna as estruturas de dados separadas corretamente
     }
 
-    public static void decodificar(String nomeArq) throws FileNotFoundException, IOException {
+    public static void decodificar(String nomeArq, String nomeArqSaida) throws FileNotFoundException, IOException {
 
+        //Cria e abre o stream dos arquivos de entrada e saida
         File arquivo = new File(nomeArq);
-        File saida = new File("arq_final." + nomeArq.split("\\.")[nomeArq.split("\\.").length - 1]);
+        File saida = new File(nomeArqSaida);
         FileInputStream fis = new FileInputStream(arquivo);
         FileOutputStream fos = new FileOutputStream(saida);
 
         byte[] bytesIn = new byte[10];
         byte[] bytesOut = new byte[8];
-        int bytesRead = fis.read(bytesIn, 0, 10); //serão necessarios 2 bytes para o calculo
+        int bytesRead = fis.read(bytesIn, 0, 10);//Vamos ler de 10 em 10 bytes
 
-        BitSet matrizBits = new BitSet(80);
+        BitSet matrizBits = new BitSet(80);//Matriz de 8x10
 
         BitSet verificadorVerticalBits = new BitSet(8);
         BitSet verificadorHorizontalBits = new BitSet(8);
@@ -127,85 +82,68 @@ public class Decodificador {
         BitSet verificadorVerticalRecebido = new BitSet(8);
         BitSet verificadorHorizontalRecebido = new BitSet(8);
 
-        while (bytesRead != -1) {
+        while (bytesRead != -1) {//Enquanto nao terminar o arquivo
 
-            matrizBits = BitSet.valueOf(bytesIn);
-            if (bytesIn.length != matrizBits.toByteArray().length) {
-                matrizBits.set((bytesIn.length * 8), (bytesIn.length * 8) + 8, false);
-            }
+            matrizBits = BitSet.valueOf(bytesIn);//Passa os bytes lidos para a estrutura BitSet
+//            if (bytesIn.length != matrizBits.toByteArray().length) {
+//                int diferenca = bytesIn.length - matrizBits.toByteArray().length;
+//                matrizBits.set((bytesIn.length * 8), (bytesIn.length * 8) + 8, false);//Completa o BitSet 
+//            }
 
-            BitSet[] separador = separaVerificadorEDados(matrizBits);
+            BitSet[] separador = separaVerificadorEDados(matrizBits);//Pega as partes separadas
             verificadorHorizontalRecebido = separador[0];
             verificadorVerticalRecebido = separador[1];
             matrizBitsRecebida = separador[2];
 
-            verificadorVerticalBits = calculaVerificadorVertical(matrizBitsRecebida);
-            System.out.println("VV Novo:" + verificadorVerticalBits);
-            System.out.println("VV Velho:" + verificadorVerticalRecebido);
+            verificadorVerticalBits = Codificador.calculaVerificadorVertical(matrizBitsRecebida);//Recalcula os verificadores de paridade, para procurar erro
+            verificadorHorizontalBits = Codificador.calculaVerificadorHorizontal(matrizBitsRecebida);
 
-            verificadorHorizontalBits = calculaVerificadorHorizontal(matrizBitsRecebida);
-            System.out.println("VH Novo:" + verificadorHorizontalBits);
-            System.out.println("VH Velho:" + verificadorHorizontalRecebido);
-            //if debugger
-            if (!verificadorHorizontalBits.equals(verificadorHorizontalRecebido) || !verificadorVerticalBits.equals(verificadorVerticalRecebido)) {
-                System.out.println("stop");
-            }
-
-//            if (bytesRead < 8 && bytesRead > 0) {
-//                byte[] aux = new byte[8];
-//                for (int k = 0; k < bytesOut.length; k++) {
-//                    aux[k] = bytesOut[k];
-//                }
-//                for (int i = bytesRead - 1; i < 8; i++) {
-//                    aux[i] = 0;
-//                }
-//                bytesOut = aux;
-//            }
-            int erroVertical = 0;
+            //Variáveis para tratar erros
+            int erroVertical = 0;//qtd de erros
             int erroHorizontal = 0;
-            int posErroVertical = -1;
+            int posErroVertical = -1;//Pos dos erros
             int posErroHorizontal = -1;
 
-            if (!(verificadorHorizontalRecebido.equals(verificadorHorizontalBits))) {
+            if (!(verificadorHorizontalRecebido.equals(verificadorHorizontalBits))) {//Caso os verificadores sejam diferentes
                 for (int i = 0; i < 8; i++) {
                     if (verificadorHorizontalRecebido.get(i) != verificadorHorizontalBits.get(i)) {
                         erroHorizontal++;
-                        posErroHorizontal = i;
+                        posErroHorizontal = i;//Acho qual posição está errado, adiciono contador de erros
                     }
                 }
-                if (erroHorizontal > 1) {
-                    System.err.println("ARQUIVO CORROMPIDO E NÃO FOI POSSÍVEL CORRIGI-LO");
+                if (erroHorizontal > 1) {//Caso haja mais de 1 erro, não é possível recuperar com esta técnica
+                    System.err.println("ARQUIVO CORROMPIDO E NÃO FOI POSSÍVEL CORRIGI-LO: Foram detectados 2 erros ou mais, portanto irrecuperável por este método");
                     fos.close();
                     fis.close();
                     System.exit(0);
                 }
             }
 
-            if (!(verificadorVerticalRecebido.equals(verificadorVerticalBits))) {
+            if (!(verificadorVerticalRecebido.equals(verificadorVerticalBits))) {//Caso os verificadores sejam diferentes
                 for (int i = 0; i < 8; i++) {
                     if (verificadorVerticalRecebido.get(i) != verificadorVerticalBits.get(i)) {
                         erroVertical++;
-                        posErroVertical = i;
+                        posErroVertical = i;//Acho qual posição está errado, adiciono contador de erros
                     }
                 }
-                if (erroVertical > 1) {
-                    System.err.println("ARQUIVO CORROMPIDO E NÃO FOI POSSÍVEL CORRIGI-LO(vertical)");
+                if (erroVertical > 1) {//Caso haja mais de 1 erro, não é possível recuperar com esta técnica
+                    System.err.println("ARQUIVO CORROMPIDO E NÃO FOI POSSÍVEL CORRIGI-LO: Foram detectados 2 erros ou mais, portanto irrecuperável por este método");
                     fos.close();
                     fis.close();
                     System.exit(0);
                 }
             }
 
-            if ((erroVertical == 1) && (erroHorizontal == 1)) {
+            if ((erroVertical == 1) && (erroHorizontal == 1)) {//Caso ideal: 1 erro em cada, é possivel recuperar
 
                 if (matrizBitsRecebida.get((posErroVertical * 8) + posErroHorizontal)) {
-                    matrizBitsRecebida.set((posErroVertical * 8) + posErroHorizontal, false);
+                    matrizBitsRecebida.set((posErroVertical * 8) + posErroHorizontal, false);//Inverte o bit errado
                 } else {
                     matrizBitsRecebida.set((posErroVertical * 8) + posErroHorizontal, true);
                 }
-                System.out.println("ERRO DETECTADO E CORRIGIDO.");
+                System.out.println("ERRO PONTUAL DETECTADO E CORRIGIDO AUTOMATICAMENTE.");
             } else if ((erroVertical == 1) || (erroHorizontal == 1)) {
-                if (erroVertical == 1) {
+                if (erroVertical == 1) {//Verifica por erros nos verificadores, mas esses erros não influenciam no arquivo final
                     System.out.println("ERRO DETECTADO NO VERIFICADOR DE PARIDADE VERTICAL, MAS SEM DANOS NO ARQUIVO.");
                 }
                 if (erroHorizontal == 1) {
@@ -213,32 +151,34 @@ public class Decodificador {
                 }
             }
 
-            bytesOut = matrizBitsRecebida.toByteArray();
+            bytesOut = matrizBitsRecebida.toByteArray();//Prepara para escrever
 
-            if (bytesOut.length == 0) {
+            if (bytesOut.length == 0) {//Trata o caso dos ultimos bytes zeros do bloco, que de outra forma seriam ignorados
                 bytesOut = new byte[8];
                 for (int i = 0; i < 8; i++) {
                     bytesOut[i] = 0;
                 }
             } else {
-                if (bytesRead < 8 && bytesRead > 0) {
+                if (bytesRead < 10 && bytesRead > 0) {//Trata o caso do bloco nao ter 8 bytes de dados certinho, então ingnoramos os bytes de verificação e salvamos os bytes de dados
                     byte[] aux = new byte[bytesRead - 2];
                     for (int i = 0; i < bytesRead - 2; i++) {
                         aux[i] = bytesOut[i];
                     }
 
-//                for (int i = 0; i < bytesRead; i++) {
-//                    aux[i] = bytesOut[i];
-//                }
                     bytesOut = aux;
                 }
             }
 
-            fos.write(bytesOut);
-            bytesRead = fis.read(bytesIn, 0, 10);
+            fos.write(bytesOut);//Salvar os bytes no arquivo de saida
+            bytesRead = fis.read(bytesIn, 0, 10);//Tenta ler 10 bytes novamente
+
+            if (bytesRead < 3 && bytesRead != -1) {//Verifica o caso de menos de 3 bytes (2 de verificação e 1 de dados) lidos
+                System.err.println("FINAL DO ARQUIVO CORROMPIDO: ultimo bloco tem menos que 3 bytes, estrutura comprometida");
+                System.exit(0);
+            }
         }
 
-        fos.close();
+        fos.close();//Fecha os arquivos
         fis.close();
 
     }
