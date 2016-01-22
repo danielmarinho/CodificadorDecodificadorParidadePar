@@ -85,10 +85,6 @@ public class Decodificador {
         while (bytesRead != -1) {//Enquanto nao terminar o arquivo
 
             matrizBits = BitSet.valueOf(bytesIn);//Passa os bytes lidos para a estrutura BitSet
-//            if (bytesIn.length != matrizBits.toByteArray().length) {
-//                int diferenca = bytesIn.length - matrizBits.toByteArray().length;
-//                matrizBits.set((bytesIn.length * 8), (bytesIn.length * 8) + 8, false);//Completa o BitSet 
-//            }
 
             BitSet[] separador = separaVerificadorEDados(matrizBits);//Pega as partes separadas
             verificadorHorizontalRecebido = separador[0];
@@ -178,8 +174,13 @@ public class Decodificador {
             }
         }
 
-        fos.close();//Fecha os arquivos
-        fis.close();
+        try {
+            fos.close();//Fecha os arquivos
+            fis.close();
+            System.out.println("\nArquivo decodificado com sucesso!\n");
+        } catch (Exception e) {
+            System.err.println("Ocorreu um erro durante a decodificação.\n");
+        }
 
     }
 }

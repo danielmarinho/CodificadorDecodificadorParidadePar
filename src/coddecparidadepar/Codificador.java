@@ -119,8 +119,13 @@ public class Codificador {
             bytesRead = fis.read(bytesIn, 0, 8);//Tenta le proximos 8 bytes
 
         }
-
-        fos.close();//Fecha os arquivos
-        fis.close();
+        try {
+            fos.close();//Fecha os arquivos
+            fis.close();
+            System.out.println("\nArquivo codificado com sucesso!\n");
+        } catch (Exception e) {
+            System.err.println("Ocorreu um erro durante a codificação.\n");
+        }
+        
     }
 }
